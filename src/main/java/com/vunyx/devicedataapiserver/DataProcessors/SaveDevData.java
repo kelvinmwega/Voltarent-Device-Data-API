@@ -28,10 +28,8 @@ public class SaveDevData {
     private boolean updateDeviceData(JsonObject devData, String db){
         try {
             Database devdb = dbConfig.database(db);
-//            JsonObject device = devdb.find(JsonObject.class, devData.get("deviceid").getAsString());
             Selector selector =  eq("id",devData.get("deviceid").getAsString());
-            QueryResult<JsonObject> devices = devdb.query(new QueryBuilder(selector).
-                            build(), JsonObject.class);
+            QueryResult<JsonObject> devices = devdb.query(new QueryBuilder(selector).build(), JsonObject.class);
             JsonObject device = devices.getDocs().get(0);
             device.addProperty("latestupdate", devData.get("timestamp").getAsString());
             devdb.update(device);
