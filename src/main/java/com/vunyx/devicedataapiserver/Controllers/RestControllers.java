@@ -38,6 +38,13 @@ public class RestControllers {
     }
 
     @CrossOrigin
+    @RequestMapping(value = "/tracker",  method = RequestMethod.POST, headers="Accept=application/json")
+    public ResponseEntity<Boolean> trackerData(@RequestBody  String data) throws Exception{
+        System.out.println(data);
+        return new ResponseEntity<>(saveDevData.SavaDeviceData(parser.parse(data).getAsJsonObject(), "tracker"), HttpStatus.OK);
+    }
+
+    @CrossOrigin
     @RequestMapping(value = "/getRegisteredDevices", method = RequestMethod.GET)
     public ResponseEntity<String> getRegisteredDevices(){
         return new ResponseEntity<>(cloudantClient.getRegDevices().getDocs().toString(), HttpStatus.OK);
